@@ -16,8 +16,24 @@ web-build/
 *.key
 *.mobileprovision
 
+# Android build files
+android/.gradle/
+android/app/build/
+android/build/
+android/gradle/
+
+# iOS build files
+ios/build/
+ios/DerivedData/
+ios/Pods/
+ios/Podfile.lock
+
 # Metro
 .metro-health-check*
+
+# Logs
+logs
+*.log
 
 # debug
 npm-debug.*
@@ -33,3 +49,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Coverage reports
+coverage/
