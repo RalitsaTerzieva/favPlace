@@ -23,4 +23,19 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/favplace-app.git
+   git clone https://github.com/RalitsaTerzieva/favPlace
+
+2. Navigate to the project directory:
+   
+   ```bash
+   cd favPlace
+
+3. Install dependencies:
+
+    ```bash
+    npm install
+
+4. Start the Expo development server:
+
+    ```bash
+    expo start
