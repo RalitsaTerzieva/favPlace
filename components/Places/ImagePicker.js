@@ -1,6 +1,6 @@
 import { View,  Alert, Image, StyleSheet, Text } from 'react-native';
 import { useState } from 'react';
-import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
+import { launchCameraAsync, useCameraPermissions, PermissionStatus, MediaTypeOptions } from 'expo-image-picker';
 import { Colors } from './../../constants/colors';
 import OutlinedButton from '../UI/OutlinedButton';
 
@@ -32,12 +32,13 @@ function ImagePicker() {
         }
 
         
-        const image = await launchCameraAsync({
+        const imagePickerResult = await launchCameraAsync({
             allowsEditing: true,
-            aspect: [16, 9],
+            mediaTypes: MediaTypeOptions.All,
+            aspect: [4, 3],
             quality: 0.5
         });
-        console.log(image)
+        const image = imagePickerResult.assets[0]
         setPickedImage(image);
     }
     
