@@ -13,14 +13,23 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.favPlace"
+      "bundleIdentifier": "com.anonymous.favPlace",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to take photos of your favorite places.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to save your favorite place photos."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.favPlace"
+      "package": "com.anonymous.favPlace",
+      "permissions": [
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +38,7 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "The app needs access to your camera in order to take photo of your favorite places."
+          "cameraPermission": "The app needs access to your camera in order to take photos of your favorite places."
         }
       ]
     ]
