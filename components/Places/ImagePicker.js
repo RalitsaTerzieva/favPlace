@@ -4,7 +4,7 @@ import { launchCameraAsync, useCameraPermissions, PermissionStatus, MediaTypeOpt
 import { Colors } from './../../constants/colors';
 import OutlinedButton from '../UI/OutlinedButton';
 
-function ImagePicker() {
+function ImagePicker({onImageTaken}) {
     const [pickedImage, setPickedImage] = useState();
     const [cameraPermission, requestCameraPermissionStatus] = useCameraPermissions();
 
@@ -40,6 +40,7 @@ function ImagePicker() {
         });
         const image = imagePickerResult.assets[0]
         setPickedImage(image);
+        onImageTaken(image.uri);
     }
     
     let imagePreview = <Text>No Image taken yet.</Text>;

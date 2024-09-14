@@ -5,7 +5,7 @@ import { Colors } from './../../constants/colors';
 import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, } from 'expo-location';
 
-function LocationPicker() {
+function LocationPicker({onLocationPick}) {
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
     const [pickedLocation, setPickedLocation] = useState();
     const isFocused = useIsFocused();
@@ -20,6 +20,10 @@ function LocationPicker() {
         }
       
     }, [route, isFocused])
+
+    useEffect(() => {
+        onLocationPick(pickedLocation);
+    }, [pickedLocation, onLocationPick])
 
     async function verifyPermissions() {
         if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -48,7 +52,7 @@ function LocationPicker() {
         setPickedLocation({
             lat: location.coords.latitude,
             lng: location.coords.longitude
-        })
+        });
     }
 
     function pickOnMapHandler() {
