@@ -1,12 +1,25 @@
-import { View, StyleSheet,  Alert, } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, StyleSheet,  Alert, Text } from 'react-native';
 import OutlinedButton from '../UI/OutlinedButton';
 import { Colors } from './../../constants/colors';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, } from 'expo-location';
 
 function LocationPicker() {
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
+    const [pickedLocation, setPickedLocation] = useState();
+    const isFocused = useIsFocused();
     const navigation = useNavigation();
+    const route = useRoute();
+
+
+    useEffect(() => {
+        if(isFocused && route.params) {
+            const mapPickedLocation = {lat: route.params.pickedLat, lng: route.params.pickedLng};
+            setPickedLocation(mapPickedLocation);
+        }
+      
+    }, [route, isFocused])
 
     async function verifyPermissions() {
         if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -32,7 +45,10 @@ function LocationPicker() {
         }
 
         const location = await getCurrentPositionAsync();
-        console.log(location);
+        setPickedLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
+        })
     }
 
     function pickOnMapHandler() {
@@ -41,7 +57,13 @@ function LocationPicker() {
 
     return (
         <View>
-            <View style={styles.mapPreview}></View>
+            <View style={styles.mapPreview}>
+                {pickedLocation ? (
+            <Text>Lat: {pickedLocation.lat}, Lng: {pickedLocation.lng}</Text>
+            ) : (
+            <Text>No location picked yet.</Text>
+             )}
+            </View>
             <View style={styles.actions}>
                 <OutlinedButton icon="location" onPress={getLocationHandler}>Locate User</OutlinedButton>
                 <OutlinedButton icon="map" onPress={pickOnMapHandler}>Pick on Map</OutlinedButton>
