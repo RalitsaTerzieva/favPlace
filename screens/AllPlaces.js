@@ -3,10 +3,16 @@ import PlaceList from './../components/Places/PlacesLIst';
 import { StyleSheet } from 'react-native';
 import { Colors } from './../constants/colors';
 import { useIsFocused } from '@react-navigation/native';
+import { useSQLiteContext } from 'expo-sqlite';
+
 
 function AllPlaces({ route }) {
-  const [loadedPlaces, setLoadedPlaces] = useState([]);
+  const db = useSQLiteContext();
+  const places = db.getAllSync('SELECT * FROM places ORDER BY id');
+
+  const [loadedPlaces, setLoadedPlaces] = useState(places);
   const isFocused = useIsFocused();
+  
 
     useEffect(() => {
       if(isFocused && route.params) {
